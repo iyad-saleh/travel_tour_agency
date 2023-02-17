@@ -1,0 +1,92 @@
+<odoo>
+  <data>
+    
+    <!-- Top menu item -->
+    <menuitem 
+        id="travel_tour_agency.menu_root"
+        web_icon="travel_tour_agency,static/description/icon.png"
+        name="Travel And Tour Agency"  
+        sequence="0"/>
+<!-- Airline menu item -->
+    <menuitem id="menu_airline_reservation" 
+            name="Reservations" 
+            parent="travel_tour_agency.menu_root" 
+            sequence="1" />
+    <menuitem id="airline_reservation_list" 
+            name="Reservation" 
+            parent="menu_airline_reservation" 
+            action="travel_tour_agency_reservation_action_window"
+            sequence="1" />
+
+    <menuitem  id="travel_tour_agency_airline" 
+          name="AirLines"
+          parent="travel_tour_agency.menu_root"
+          sequence="2"  />
+
+        <menuitem id="menu_airline" 
+            name="Airline Companies" 
+            parent="travel_tour_agency_airline" 
+            action="action_travel_tour_agency_airline_window"
+            sequence="1" />
+        <menuitem id="menu_airline_flight" 
+            name="Flights" 
+            parent="travel_tour_agency_airline" 
+            action="action_travel_tour_agency_airline_flight_window" 
+            sequence="2" />
+        <menuitem id="menu_airline_flight_schedule" 
+            name="Flights schedule" 
+            parent="travel_tour_agency_airline" 
+            action="action_travel_tour_agency_airline_flight_schedule_window" 
+            sequence="3" />
+        <menuitem id="menu_product_airline" 
+            name="Available Airline" 
+            parent="travel_tour_agency_airline" 
+            action="product_product_action_airline" />
+  
+<!-- Customers menu item -->
+    <menuitem  id="travel_tour_agency_customer"
+         name="Customers"
+         parent="travel_tour_agency.menu_root" 
+         sequence="2" />
+        <menuitem id="menu_customer" 
+            name="Customers" 
+            parent="travel_tour_agency_customer" 
+            action="account.res_partner_action_customer" />
+        <menuitem id="menu_passenger" 
+            name="Passengers" 
+            parent="travel_tour_agency_customer" 
+            action="action_travel_tour_agency_passenger_window" />
+<!-- Hotels menu item -->
+    <menuitem id="travel_tour_agency_hotel"
+         name="Hotels" 
+         parent="travel_tour_agency.menu_root" 
+         sequence="3" />
+
+        <menuitem  id="travel_tour_agency_hotels_list"
+            name="Hotels" 
+            parent="travel_tour_agency_hotel" 
+            action="travel_tour_agency_hotel_action_window" />
+
+        <menuitem id="menu_product_hotel" 
+            name="Available Hotel" 
+            parent="travel_tour_agency_hotel" 
+            action="product_product_action_hotel" />
+
+<!-- Configuratin menu item -->
+     <menuitem id="travel_tour_agency_config"
+        name="Configuratin" 
+         parent="travel_tour_agency.menu_root" 
+         sequence="10" />
+          <menuitem id="menu_airport" 
+            name="AirPort" 
+            parent="travel_tour_agency_config" 
+            action="action_travel_tour_agency_airport_window" 
+            sequence="1" />
+
+              <menuitem id="menu_country" 
+                name="Cities" 
+                parent="travel_tour_agency_config" 
+                action="action_travel_tour_agency_city_window" 
+                sequence="2" />
+  </data>
+</odoo>

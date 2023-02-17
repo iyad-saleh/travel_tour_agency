@@ -1,0 +1,112 @@
+<odoo>
+    <data>
+        <record id="viwe_travel_tour_agency_airport_form" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airport.form</field>
+            <field name="model">travel_tour_agency.airport</field>
+            <field name="arch" type="xml">
+                <form sample="1">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="iata_code" />
+                                <field name="airport_type" />
+                                <field name="iso_country" />
+                                <field name="iso_region" />
+                                <field name="continent" />
+                            </group>
+                            <group>
+                                <field name="elevation_ft" />
+                                <field name="municipality" />
+                                <field name="gps_code" />
+                                <field name="local_code" />
+                                <field name="coordinates" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="viwe_travel_tour_agency_airport_tree" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airport.tree</field>
+            <field name="model">travel_tour_agency.airport</field>
+            <field name="arch" type="xml">
+                <tree sample="1">
+                    <field name="name" />
+                    <field name="iata_code" />
+                    <field name="airport_type" />
+                    <field name="elevation_ft" />
+                    <field name="continent" />
+                    <field name="iso_country" />
+                    <field name="iso_region" />
+                    <field name="municipality" />
+                    <field name="gps_code" />
+                    <field name="local_code" />
+                    <field name="coordinates" />
+                </tree>
+            </field>
+        </record>
+        <record id="viwe_travel_tour_agency_airport_search" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airport.search</field>
+            <field name="model">travel_tour_agency.airport</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="iata_code" />
+                </search>
+            </field>
+        </record>
+        <record id="viwe_travel_tour_agency_airport_kanban" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airport.kanban</field>
+            <field name="model">travel_tour_agency.airport</field>
+            <field name="arch" type="xml">
+                <kanban sample="1">
+                    <field name="name" />
+                    <field name="iata_code" />
+                    <field name="iso_country" />
+                    <field name="municipality" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div>
+                                    <strong>AirPort: </strong>
+                                    <t t-esc="record.name.value" />
+                                </div>
+                                <div>
+                                    <strong>iso_country: </strong>
+                                    <t t-esc="record.iso_country.value" />
+                                </div>
+                                <div>
+                                    <strong>municipality: </strong>
+                                    <t t-esc="record.municipality.value" />
+                                </div>
+                                <div>
+                                    <strong>IATA CODE: </strong>
+                                    <t t-esc="record.iata_code.value" />
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_travel_tour_agency_airport_window">
+            <field name="name">AirPorts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">travel_tour_agency.airport</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create first AirPort!!!
+                </p>
+            </field>
+        </record>
+       
+    </data>
+</odoo>

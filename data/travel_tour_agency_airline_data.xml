@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="airline_Etihad" model="travel_tour_agency.airline">
+            <field name="name">Etihad Airways</field>
+        </record>
+
+        <!--  Etihad_flights   -->
+        <record id="airline_Etihad_flight_1" model="travel_tour_agency.airline.flight">
+            <field name="flightNo">8Q744</field>
+            <field name="airline_id" ref="airline_Etihad"></field>
+        </record>
+        <!--  airline_Etihad_flight_1 seat   -->
+        <record id="airline_Etihad_flight_1_seat_1" model="travel_tour_agency.airline.flight.seat">
+            <field name="flight_id" ref="airline_Etihad_flight_1"/>
+                <field name="cost">90</field>
+                <field name="sell">150</field>
+                <field name="seatClass">economy</field>
+        </record>
+        <record id="airline_Etihad_flight_1_seat_2" model="travel_tour_agency.airline.flight.seat">
+            <field name="flight_id" ref="airline_Etihad_flight_1" />
+            <field name="cost">100</field>
+            <field name="sell">200</field>
+            <field name="seatClass">business</field>
+        </record>
+
+        <!--  airline_Etihad_flight_2   -->
+        <record id="airline_Etihad_flight_2" model="travel_tour_agency.airline.flight">
+            <field name="flightNo">8Q755</field>
+            <field name="airline_id" ref="airline_Etihad"></field>
+        </record>
+        <!--  airline_Etihad_flight_1 seat   -->
+        <record id="airline_Etihad_flight_2_seat_1" model="travel_tour_agency.airline.flight.seat">
+            <field name="flight_id" ref="airline_Etihad_flight_2"/>
+                <field name="cost">90</field>
+                <field name="sell">150</field>
+                <field name="seatClass">economy</field>
+        </record>
+        <record id="airline_Etihad_flight_2_seat_2" model="travel_tour_agency.airline.flight.seat">
+            <field name="flight_id" ref="airline_Etihad_flight_2" />
+            <field name="cost">100</field>
+            <field name="sell">200</field>
+            <field name="seatClass">business</field>
+        </record>
+        <!--               airline_Cham                               -->
+        <record id="airline_Cham" model="travel_tour_agency.airline">
+            <field name="name">Cham Wings</field>
+        </record>
+        
+        <record id="airline_Cham_flight_1" model="travel_tour_agency.airline.flight">
+            <field name="flightNo">6Q744</field>
+            <field name="airline_id" ref="airline_Cham"></field>
+        </record>
+        
+
+        <record id="airline_Cham_flight_1_seat_1" model="travel_tour_agency.airline.flight.seat">
+                <field name="flight_id" ref="airline_Cham_flight_1"/>
+                <field name="cost">90</field>
+                <field name="sell">150</field>
+                <field name="seatClass">economy</field>
+        </record>
+        <record id="airline_Cham_flight_1_seat_2" model="travel_tour_agency.airline.flight.seat">
+            <field name="flight_id" ref="airline_Cham_flight_1" />
+            <field name="cost">100</field>
+            <field name="sell">200</field>
+            <field name="seatClass">business</field>
+        </record>
+
+        <record id="airline_Cham_flight_2" model="travel_tour_agency.airline.flight">
+            <field name="flightNo">7Q744</field>
+            <field name="airline_id" ref="airline_Cham"></field>
+        </record>
+         
+
+        <record id="airline_Cham_flight_2_seat_1" model="travel_tour_agency.airline.flight.seat">
+            <field name="flight_id" ref="airline_Cham_flight_2"/>
+                <field name="cost">90</field>
+                <field name="sell">150</field>
+                <field name="seatClass">economy</field>
+        </record>
+        <record id="airline_Cham_flight_2_seat_2" model="travel_tour_agency.airline.flight.seat">
+            <field name="flight_id" ref="airline_Cham_flight_2" />
+            <field name="cost">100</field>
+            <field name="sell">200</field>
+            <field name="seatClass">business</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,163 @@
+<odoo>
+    <data>
+        <record id="viwe_travel_tour_agency_airline_flight_form" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airline.flight.form</field>
+            <field name="model">travel_tour_agency.airline.flight</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar" readonly="1" />
+                        <div class="oe_title">
+                            <h1>
+                                <field name="airline_id" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="flightNo" />
+                        </group>
+                        <notebook>
+                            <page string='FlightSchedule' name='FlightSchedule'>
+                                <field name="flightschedule_ids">
+                                    <tree>
+                                        <field name="sequence" widget="handle" />
+                                        <field name="sl_no" readonly="1" />
+                                        <field name="origin" />
+                                        <field name="destination" />
+                                        <field name="departueDate" />
+                                        <field name="arrivalDate" />
+                                        <field name="duration" />
+                                        <field name="remarks" />
+                                        <field name="state" />
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="origin" />
+                                                <field name="destination" />
+                                                <field name="departueDate" />
+                                                <field name="arrivalDate" />
+                                            </group>
+                                            <group>
+                                                <field name="duration" />
+                                                <field name="remarks" />
+                                                <field name="state" />
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string='Seats' name='Seats'>
+                                <field name="seat_ids">
+                                    <tree>
+                                        <field name="seatNo" />
+                                        <field name="seatClass" />
+                                        <field name="cost" />
+                                        <field name="sell" />
+                                        <field name="vendor" />
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="seatNo" />
+                                            <field name="seatClass" />
+                                            <field name="cost" />
+                                            <field name="sell" />
+                                            <field name="vendor" />
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="viwe_travel_tour_agency_airline_flight_tree" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airline.flight.tree</field>
+            <field name="model">travel_tour_agency.airline.flight</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle" />
+                    <field name="airline_id" />
+                    <field name="flightNo" />
+                    <field name="flightschedule_ids" />
+                </tree>
+            </field>
+        </record>
+        <record id="viwe_travel_tour_agency_airline_flight_search" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airline.flight.search</field>
+            <field name="model">travel_tour_agency.airline.flight</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="airline_id" />
+                    <field name="flightNo" />
+                    <filter name="filter_schedule" string="Schedule" domain="[('flightschedule_ids','!=',False)]" />
+                    <group expand="0" string="Group_By_Airline">
+                        <filter string="Airline" name="group_by_airline" context="{'group_by':'airline_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="viwe_travel_tour_agency_airline_flight_kanban" model="ir.ui.view">
+            <field name="name">airline.flight.kanban</field>
+            <field name="model">travel_tour_agency.airline.flight</field>
+            <field name="arch" type="xml">
+                <kanban sample="1">
+                    <field name="name" />
+                    <field name="image" />
+                    <field name="flightschedule_ids" />
+                    <field name="seat_ids" />
+                    <field name="flightNo" />
+                    <field name="id" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('travel_tour_agency.airline.flight', 'image', record.id.raw_value)" t-att-title="record.name.value" t-att-alt="record.name.value" class="oe_kanban_avatar" />
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div>
+                                            <strong>Airline: </strong>
+                                            <t t-esc="record.name.value" />
+                                        </div>
+                                        <div>
+                                            <strong>flight No: </strong>
+                                            <t t-esc="record.flightNo.value" />
+                                        </div>
+                                        <div>
+                                            <strong>Schedules: </strong>
+                                            <t t-esc="record.flightschedule_ids.value" />
+                                        </div>
+                                        <div>
+                                            <strong>Seats: </strong>
+                                            <t t-esc="record.seat_ids.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_travel_tour_agency_airline_flight_window">
+            <field name="name">Flights</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">travel_tour_agency.airline.flight</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create first Flight!!!
+                </p>
+            </field>
+        </record>
+        </data>
+</odoo>

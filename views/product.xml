@@ -1,0 +1,174 @@
+<odoo>
+    <data>
+        <record id="book_product_template_kanban_view" model="ir.ui.view">
+            <field name="name">Product.template.product.booked.kanban</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//templates" position="before">
+                    <field name="booking_start_date" />
+                    <field name="booking_end_date" />
+                </xpath>
+                <xpath expr="//t[@t-name='kanban-box']//div[hasclass('oe_kanban_details')]" position="inside">
+                    <t t-if="record.booking_start_date.value">
+                        <div class="mt-1">
+                            Departue:
+                            <strong><field name="origin"/></strong>
+                            <field name="booking_start_date" />
+                        </div>
+                        <div class="mt-1">
+                            Arrival:
+                            <strong><field name="destination"/></strong>
+                            <field name="booking_end_date" />
+                        </div>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+        <record id="product_template_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.product.booking.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options']" position="inside">
+                    <span class="d-inline-block">
+                        <field name="is_booking_type" />
+                        <label for="is_booking_type" />
+                    </span>
+                </xpath>
+                <xpath expr="//div[@name='options']" position="after">
+                    <group>
+                        <field name="book_type"  />
+                    </group>
+
+                    <button name="%(travel_tour_agency.action_create_reservation)d" string="Make Reservation" type="action" class="float-right btn-secondary" context="{'active_id': id}" />
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="Airline" string="Airline Details" invisible="context.get('show_airline')"  >
+                        <group>
+                            <group>
+                                <field name="booking_start_date"  />
+                                <field name="booking_end_date"  />
+                            </group>
+                            <group>
+                                <field name="origin" />
+                                <field name="destination" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="Hotel " string="Hotel Details" invisible="context.get('show_hotel')"  >
+                        <group>
+                            <group>
+                                <field name="country_id"  />
+                                <field name="city_id"  />
+                            </group>
+                           
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="account.product_product_action_sellable" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="domain">[('is_booking_type','=',True)]</field>
+        </record>
+        <record id="book_product_template_view_tree" model="ir.ui.view">
+            <field name="name">product.template.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_view_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='taxes_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='supplier_taxes_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='activity_exception_decoration']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='taxes_id']" position="before">
+                    <button name="%(travel_tour_agency.action_create_reservation)d" string="Make Reservation" type="action" class="float-right btn-secondary" context="{'active_id': id}" />
+                    <field name="standard_price" />
+                    <field name="book_type" />
+                    <field name="booking_start_date" string="Departue" invisible="context.get('hide_date')" />
+                    <field name="origin" string="Origin" invisible="context.get('hide_date')" />
+                    <field name="booking_end_date" string="Arrival" invisible="context.get('hide_date')" />
+                    <field name="destination" string="Destination" invisible="context.get('hide_date')" />
+
+                    <field name="country_id" invisible="context.get('show_hotel')" />
+                    <field name="city_id" invisible="context.get('show_hotel')" />
+                    <field name="seller_ids" widget="many2many_tags" />
+                </xpath>
+            </field>
+        </record>
+
+ <record id="book_product_template_view_search" model="ir.ui.view">
+            <field name="name">product.template.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                 <field name="origin" filter_domain="[('origin','ilike',self)]"/>
+                 <field name="destination" filter_domain="[('destination','ilike',self)]"/>
+                 <group expand="0" string="Group_By_origin">
+                        <filter string="Origin" name="group_by_origin" context="{'group_by':'origin'}"/>
+                    </group>
+  
+                    <group expand="0" string="Group_By_destination">
+                        <filter string="Destination" name="group_by_destination" context="{'group_by':'destination'}"/>
+                    </group>
+                    <group expand="0" string="Group_By_country">
+                        <filter string="Country" name="group_by_country" context="{'group_by':'country_id'}"/>
+                    </group>
+                    <group expand="0" string="Group_By_city">
+                        <filter string="City" name="group_by_city" context="{'group_by':'city_id'}"/>
+                    </group>
+                    <group expand="0" string="Group_By_booking_start_date">
+                        <filter string="Departue" name="group_by_booking_start_date" context="{'group_by':'booking_start_date'}"/>
+                    </group>
+                    <group expand="0" string="booking_end_date">
+                        <filter string="Arrival" name="booking_end_date" context="{'group_by':'booking_end_date'}"/>
+                    </group>
+              <searchpanel> 
+                      <field name= "origin" icon="fa-users"  enable_counters="1"/>
+                      <field name= "destination" icon="fa-users"  enable_counters="1"/>
+                      <field name= "country_id" icon="fa-users"  enable_counters="1"/>
+                      <field name= "city_id" icon="fa-users"  enable_counters="1"/>
+                    </searchpanel>
+             </xpath>
+            </field>
+        </record>
+
+
+        <record id="product_product_action_hotel" model="ir.actions.act_window">
+            <field name="name">Available Hotel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="domain">[('is_booking_type','=',True),('book_type','=','hotel')]</field>
+            <field name="context">{'search_default_filter_to_sell': 1,'default_book_type':'hotel','hide_date':1,'show_airline':1,'show_hotel':0}</field>
+            <field name="view_id" ref="book_product_template_view_tree" />
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Hotel Service
+                </p>
+            </field>
+        </record>
+        <record id="product_product_action_airline" model="ir.actions.act_window">
+            <field name="name">Available Airline</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="domain">[('is_booking_type','=',True),('book_type','=','airline')]</field>
+            <field name="context">{'search_default_filter_to_sell': 1,'default_book_type':'airline' ,'show_airline':0,'show_hotel':1}</field>
+            <field name="view_id" ref="book_product_template_view_tree" />
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Airline Service!!
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

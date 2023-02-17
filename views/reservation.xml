@@ -1,0 +1,140 @@
+<odoo>
+    <data>
+        <record id="viwe_travel_tour_agency_reservation_form" model="ir.ui.view">
+            <field name="name">reservation.form</field>
+            <field name="model">travel_tour_agency.reservation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="create_invoice" string="Create Invoice" type="object" class="oe_highlight" states="confirm" data-hotkey="i" />
+                        <button name="confirm" string="Confirm" type="object" class="oe_highlight" states="draft" data-hotkey="m" />
+                        <button name="action_cancel" string="cancel" type="object" class="oe_highlight" states="draft,confirm" data-hotkey="c" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,invoiced" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="ref" readonly="1" />
+                            </h1>
+                                <field name="account_move_id" readonly="1"/>
+                            
+                        </div>
+                            <group>
+                            <group>
+                                <field name="partner_id" />
+                            </group>
+                            
+                            <group> 
+                                <field name="booking_date" string="Reservation Date" />
+                                <field name="pnr" string="PNR" />
+                            </group>
+                            </group>
+                               
+                                 
+                        
+                        <separator string="Passengers" />     
+                        <notebook>
+                            <page string='Passenger' name='Passenger'>
+                                <field name="passenger_ids" />
+                            </page>
+                        </notebook>
+                         <separator string="flights" /> 
+                                  <span class="d-inline-block">
+                                    <field name="airline_service" widget="boolean_toggle" />
+                                    <label for="airline_service" />
+                                </span>
+                        <notebook string='Airline'>
+                            <page string='Airline' name='Airline' attrs="{'invisible': [('airline_service', '=', False)]}">
+                                <field name="airlines_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id" string="Airline" />
+                                        <field name="booking_start_date" />
+                                        <field name="booking_end_date" />
+                                        <field name="origin" />
+                                        <field name="destination" />
+                                        <field name="list_price" />
+                                        <field name="quantity" />
+                                        <!-- <field name="quantity" /> -->
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="product_id" />
+                                            <field name="booking_start_date" />
+                                            <field name="booking_end_date" />
+                                            <field name="origin" />
+                                            <field name="destination" />
+                                            <field name="list_price" />
+                                            <field name="quantity" />
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                      <separator string="Hotels" /> 
+                      <span class="d-inline-block">
+                            <field name="hotel_service" widget="boolean_toggle" /> 
+                            <label for="hotel_service" />
+                         </span>
+                        <notebook  attrs="{'invisible': [('hotel_service', '=', False)]}">
+                            <page string='Hotel' name='Hotel'>
+                                <field name="hotels_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id" string="Hotel" />
+                                        <field name="booking_start_date" />
+                                        <field name="booking_end_date" />
+                                        <field name="list_price" />
+                                        <field name="quantity" />
+                                        <!-- <field name="quantity" /> -->
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="product_id" string="Hotel" />
+                                            <field name="booking_start_date" />
+                                            <field name="booking_end_date" />
+                                            <field name="list_price" />
+                                            <field name="quantity" />
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- actions opening views on models -->
+        <record id="viwe_travel_tour_agency_reservation_tree" model="ir.ui.view">
+            <field name="name">reservation.tree</field>
+            <field name="model">travel_tour_agency.reservation</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ref" />
+                    <field name="partner_id" />
+                    <field name="passenger_ids" widget="many2many_tags" />
+                    <field name="booking_date"  />
+                    <field name="airline_service"  widget="boolean"/>
+                    <field name="hotel_service" widget="boolean"/>
+                    <!--  <field name="product_id" widget="many2many_tags"/> -->
+                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'confirm'" decoration-success="state == 'invoiced'" decoration-danger="state == 'cancel'" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="travel_tour_agency_reservation_action_window">
+            <field name="name">Reservations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">travel_tour_agency.reservation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create first Reservation!!!
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

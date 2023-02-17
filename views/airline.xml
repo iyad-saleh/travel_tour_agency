@@ -1,0 +1,119 @@
+<odoo>
+    <data>
+        <record id="viwe_travel_tour_agency_airline_form" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airline.form</field>
+            <field name="model">travel_tour_agency.airline</field>
+            <field name="arch" type="xml">
+                <form sample="1">
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar" />
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <notebook>
+                            <page string='Flights' name='Flights'>
+                                <field name="flight_ids">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle" />
+                                        <field name="sl_no" readonly="1"/>
+                                        <field name="flightNo" widget="many2onebutton" edit="true"/>
+                                        <field name="flightschedule_ids" />
+                                    </tree>
+                                    <form>
+                                        <field name="flightNo" />
+                                    </form>
+                                </field>
+                                 
+                            </page>
+                             
+                        </notebook>
+                    </sheet>
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="viwe_travel_tour_agency_airline_tree" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airline.tree</field>
+            <field name="model">travel_tour_agency.airline</field>
+            <field name="arch" type="xml">
+                <tree  sample="1">
+                    <field name="sequence" widget="handle" />
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="viwe_travel_tour_agency_airline_search" model="ir.ui.view">
+            <field name="name">travel_tour_agency.airline.search</field>
+            <field name="model">travel_tour_agency.airline</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                     <field name="flight_ids" />
+                </search>
+            </field>
+        </record>
+ <record id="viwe_travel_tour_agency_airline_kanban" model="ir.ui.view">
+            <field name="name">airline.kanban</field>
+            <field name="model">travel_tour_agency.airline</field>
+            <field name="arch" type="xml">
+                <kanban sample="1">
+                    <field name="name" />
+                    <field name="id" />
+                    <field name="flight_ids" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_image mr-1">
+                                    <img t-att-src="kanban_image('travel_tour_agency.airline', 'image', record.id.raw_value)" t-att-title="record.name.value" t-att-alt="record.name.value" class="o_image_64_contain" />
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top mb-0">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name" />
+                                            </strong>
+                                        </div>
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="flight_ids"  >
+                                                    <tree >
+                                                        <field name="flightNo"/>
+                                                    </tree>
+                                                </field>
+                                                    
+                                           </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+ 
+
+
+        <record model="ir.actions.act_window" id="action_travel_tour_agency_airline_window">
+            <field name="name">Airline Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">travel_tour_agency.airline</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create first AirLine!!!
+                </p>
+            </field>
+        </record>
+        
+
+ 
+       
+    </data>
+</odoo>
